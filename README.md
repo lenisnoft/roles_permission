@@ -1,78 +1,52 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# LENINSOFT – Roles y Permisos
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+![lenisnoft](leninsoft.jpg "lenisnoft")
 
-## About Laravel
+Descripción:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este repositorio pretende mostrar la puesta en ejecución del repositorio de "savanihd" cuyo ejemplo se muestra en la siguiente ruta:
+https://www.itsolutionstuff.com/post/laravel-6-user-roles-and-permissions-from-scratch-laravel-6-aclexample.html 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+y se lo puede clonar desde:
+git clone https://github.com/savanihd/Laravel-6-ACL.git
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+pero en ninguno de los dos casos te indican que debes hacer para poder mirar el funcionamiento del sitio en tu maquina local. A continuación muestro los pasos a seguir en Linux (Ubuntu 20.04 LTS) para que puedas ejecutarlo localmente:
 
-## Learning Laravel
+1.- Renombro la carpeta a "rol_permission" solo para distinguir de otros proyectos (no es necesario ejecutar este paso)
+mv Laravel-6-ACL/ rol_permission/
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2.- Ingreso al proyecto clonado con: cd rol_permission/
+2.1.- Si no se cambio el nombre debes ingresar con: cd Laravel-6-ACL/
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3.- Copio el archivo de variables de entorno de ejemplo a ".env"
+sudo cp .env.example .env
 
-## Laravel Sponsors
+4.- Edito el archivo de variables y coloco las credenciales para acceder a la Base de Datos local
+nano .env
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+5.- Ejecuto la actualizacion del composer que ya viene por defecto desde el repositorio
+composer update
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+6.- Genero la snuevas claves para el sitio
+sudo php artisan key:generate
 
-## Contributing
+7.- Publico el paquete Spatie (si no estuviera ya en el composer.json podríamos ejecutarlo como "composer require spatie/laravel-permission"), este paquete nos permite controlar los roles y permisos de los usuarios. Si deseas mas referencia acerca de este paquete te dejo el link: https://spatie.be/docs/laravel-permission/v3/installation-laravel
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+8- Migro las configuraciones que ya viene en el sitio para que se creen las distintas tablas a usar
+php artisan migrate
 
-## Code of Conduct
+9.- Genero los datos ejemplo para permisos
+php artisan db:seed --class=PermissionTableSeeder
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+10.- Genero el usuario que me permite ingresar al sitio (admin@gmail.com con clave 123456)
+php artisan db:seed --class=CreateAdminUserSeeder
 
-## Security Vulnerabilities
+11.- Levanto al server local por defecto (si se tiene mas sitios ejecutando debes ejecutarlo con el parámetro --port=XXX, donde XXX es el numero de puerto que quieras usar en tu maquina, por ejemplo: 8001)
+php artisan serve
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+12.- Solo resta poner la dirección de tu servidor local en el navegador y podrás mirar como funciona el ejemplo
+http://127.0.0.1:8000
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced software licensed under the MIT license.
