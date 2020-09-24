@@ -36,7 +36,7 @@ composer update
 
 6.- Genero las nuevas claves para el sitio
 
-sudo php artisan key:generate
+php artisan key:generate
 
 7.- Publico el paquete Spatie (si no estuviera ya en el composer.json podríamos ejecutarlo como "composer require spatie/laravel-permission"), este paquete nos permite controlar los roles y permisos de los usuarios. Si deseas mas referencia acerca de este paquete te dejo el link: https://spatie.be/docs/laravel-permission/v3/installation-laravel
 
