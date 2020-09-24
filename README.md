@@ -19,7 +19,7 @@ mv Laravel-6-ACL/ rol_permission/
 
 2.1.- Si no se cambio el nombre debes ingresar con: cd Laravel-6-ACL/
 
-3.- Copio el archivo de variables de entorno de ejemplo a ".env"
+3.- Copio el archivo de variables de entorno de ejemplo a ".env" 
 sudo cp .env.example .env
 
 4.- Edito el archivo de variables y coloco las credenciales para acceder a la Base de Datos local
