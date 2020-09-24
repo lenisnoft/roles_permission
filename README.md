@@ -15,7 +15,8 @@ pero en ninguno de los dos casos te indican que debes hacer para poder mirar el 
 1.- Renombro la carpeta a "rol_permission" solo para distinguir de otros proyectos (no es necesario ejecutar este paso)
 mv Laravel-6-ACL/ rol_permission/
 
-2.- Ingreso al proyecto clonado con: cd rol_permission/
+2.- Ingreso al proyecto clonado con: cd rol_permission/ 
+
 2.1.- Si no se cambio el nombre debes ingresar con: cd Laravel-6-ACL/
 
 3.- Copio el archivo de variables de entorno de ejemplo a ".env"
